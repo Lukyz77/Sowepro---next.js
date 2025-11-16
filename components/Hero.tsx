@@ -40,7 +40,7 @@ const Hero = () => {
 
       {/* Jemná pohyblivá animace v pozadí */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[#D1A45F]/60 text-sm select-none"
+        className="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 text-[#D1A45F]/60 text-sm select-none"
         animate={{ y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
       >
