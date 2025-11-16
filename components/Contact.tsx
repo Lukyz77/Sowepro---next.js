@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
+import { teko } from "../app/fonts";
 
 const Contact = () => {
   const form = useRef<HTMLFormElement | null>(null);
@@ -52,7 +53,7 @@ const Contact = () => {
     >
       <div className="max-w-6xl mx-auto text-center mb-14">
         <motion.h2
-          className="text-4xl md:text-5xl font-teko font-semibold mb-4 uppercase"
+          className={`text-4xl md:text-5xl font-semibold mb-4 uppercase ${teko.className}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}

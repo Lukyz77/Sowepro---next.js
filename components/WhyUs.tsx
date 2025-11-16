@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ShieldCheck, Goal, Zap, Sparkles } from 'lucide-react';
+import { teko } from "../app/fonts";
 
 const WhyUs = () => {
   const reasons = [
@@ -30,7 +31,7 @@ const WhyUs = () => {
     >
       <div className="max-w-7xl mx-auto text-center mb-14">
         <motion.h2
-          className="text-4xl md:text-5xl font-teko font-semibold mb-4 uppercase"
+          className={`text-4xl md:text-5xl font-semibold mb-4 uppercase ${teko.className}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -62,7 +63,7 @@ const WhyUs = () => {
             viewport={{ once: true }}
           >
             <div className="text-[#D1A45F] mb-5">{item.icon}</div>
-            <h3 className="text-2xl font-teko font-semibold mb-3">
+            <h3 className={`text-3xl font-semibold mb-3 ${teko.className}`}>
               {item.title}
             </h3>
             <p className="text-[#FFE8CC]/70 leading-relaxed">{item.text}</p>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { teko } from "../app/fonts";
 
 const About = () => {
   return (
@@ -38,7 +39,7 @@ const About = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-teko font-semibold mb-6 uppercase">
+          <h2 className={`text-4xl md:text-5xl font-semibold mb-6 uppercase ${teko.className}`}>
             O <span className="text-[#D1A45F]">Nás</span>
           </h2>
 

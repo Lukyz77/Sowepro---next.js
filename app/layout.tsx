@@ -1,9 +1,8 @@
-// app/layout.tsx
-
 import "./globals.css";
 import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sowepro.cz"),

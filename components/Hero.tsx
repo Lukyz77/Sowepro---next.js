@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { teko } from "../app/fonts";
+
 
 const Hero = () => {
   return (
@@ -20,7 +22,7 @@ const Hero = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: 'easeOut' }}
       >
-        <h1 className="text-5xl md:text-6xl font-teko font-semibold tracking-wide mb-12 leading-tight">
+        <h1 className={`text-5xl md:text-6xl font-teko font-semibold tracking-wide mb-12 leading-tight ${teko.className}`}>
           ZVOL SI <span className="text-[#D1A45F]">SOWEPRO</span> A VYSTUP Z DAVU
         </h1>
         <p className="text-sm md:text-md text-[#FFE8CC]/80 max-w-2xl mx-auto mb-16">

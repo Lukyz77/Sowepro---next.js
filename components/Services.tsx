@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Video, Camera } from 'lucide-react'; // můžeš upravit ikony podle obsahu
+import { Code, Video, Camera } from 'lucide-react'; 
+import { teko } from "../app/fonts";
 
 const Services = () => {
   const services = [
@@ -33,7 +34,7 @@ const Services = () => {
     >
       <div className="max-w-7xl mx-auto text-center mb-12">
         <motion.h2
-          className="text-4xl md:text-5xl font-teko font-semibold mb-4 uppercase"
+          className={`text-4xl md:text-5xl font-semibold mb-4 uppercase ${teko.className}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -65,7 +66,7 @@ const Services = () => {
             viewport={{ once: true }}
           >
             <div className="text-[#D1A45F] mb-5">{service.icon}</div>
-            <h3 className="text-2xl font-semibold mb-3 font-teko">{service.title}</h3>
+            <h3 className={`text-3xl font-semibold mb-3 ${teko.className}`}>{service.title}</h3>
             <p className="text-[#FFE8CC]/70 leading-relaxed flex-grow">{service.text}</p>
 
             <div className="mt-auto pt-5">

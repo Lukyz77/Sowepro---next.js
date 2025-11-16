@@ -67,7 +67,7 @@ const Navbar = () => {
 
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex lg:ml-20 items-center gap-8 text-[#FFE8CC] text-md lg:text-lg font-medium">
+          <ul className="hidden md:flex lg:ml-20 items-center gap-8 text-[#FFE8CC] text-md lg:text-lg font-teko ">
             <li><a href="#about" className="hover:text-[#D1A45F] transition">O nás</a></li>
             <li><a href="#services" className="hover:text-[#D1A45F] transition">Služby</a></li>
             <li><a href="#whyus" className="hover:text-[#D1A45F] transition">Proč my</a></li>
@@ -87,7 +87,7 @@ const Navbar = () => {
                 transition: { duration: 0.4 },
               }}
               className="absolute right-0 flex items-center justify-center bg-[#B8955F]
-              text-[#0f1c2b] text-sm font-semibold py-4 rounded-2xl"
+              text-[#0f1c2b] text-sm font-teko font-semibold py-4 rounded-2xl"
               href="#contact"
             >
               <motion.span
