@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sowepro.cz"),
   title: {
-    default: "Sowepro — Moderní weby a videoprodukce",
+    default: "Sowepro",
     template: "%s | Sowepro",
   },
   description:
