@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sowepro.cz"),
@@ -72,9 +72,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="cs">
       <body className="bg-[#0f1a28] text-[#FFE8CC]">
-        <Navbar />
-        {children}
-        <Footer />
+          <Navbar />
+          {children}
+          <Footer />
+          <Analytics />
       </body>
     </html>
   );
