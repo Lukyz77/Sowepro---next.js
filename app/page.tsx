@@ -6,21 +6,23 @@ import Portfolio from "../components/Portfolio";
 import WhyUs from "../components/WhyUs";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
+import { getPageData } from "../lib/GetPageData";
+
 
 export const revalidate = 3600;
 
-async function getPageData() {
+// async function getPageData() {
 
-  const baseUrl =
-    process.env.SITE_URL ||
-    (typeof window !== "undefined" ? window.location.origin : "");
+//   const baseUrl =
+//     process.env.SITE_URL ||
+//     (typeof window !== "undefined" ? window.location.origin : "");
 
-  const res = await fetch(`${baseUrl}/api/page-data`, {
-    next: { revalidate: 3600 }
-  });
+//   const res = await fetch(`${baseUrl}/api/page-data`, {
+//     next: { revalidate: 3600 }
+//   });
 
-  return res.json();
-}
+//   return res.json();
+// }
 
 
 export default async function Home() {
