@@ -10,12 +10,18 @@ import Footer from "../components/Footer";
 export const revalidate = 3600;
 
 async function getPageData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/page-data`, {
+
+  const baseUrl =
+    process.env.SITE_URL ||
+    (typeof window !== "undefined" ? window.location.origin : "");
+
+  const res = await fetch(`${baseUrl}/api/page-data`, {
     next: { revalidate: 3600 }
   });
 
   return res.json();
 }
+
 
 export default async function Home() {
 
