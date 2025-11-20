@@ -15,17 +15,10 @@ type ContactText = {
   phone: string;
 };
 
-const Contact = () => {
+const Contact = ({data}: {data: ContactText}) => {
   const form = useRef<HTMLFormElement | null>(null);
   const [isSending, setIsSending] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
-  const [text, setText] = useState<ContactText | null>(null);
-
-  useEffect(() => {
-    fetch("/api/contact-text")
-      .then((res) => res.json())
-      .then((data) => setText(data));
-  }, []);
 
   const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +51,6 @@ const Contact = () => {
     }
   };
 
-  if (!text) return null;
 
   return (
     <section
@@ -74,9 +66,9 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          {text.titleBefore}{" "}
-          <span className="text-[#D1A45F]">{text.titleMiddle}</span>{" "}
-          {text.titleAfter}
+          {data.titleBefore}{" "}
+          <span className="text-[#D1A45F]">{data.titleMiddle}</span>{" "}
+          {data.titleAfter}
         </motion.h2>
 
         <motion.p
@@ -86,7 +78,7 @@ const Contact = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          {text.subtitle}
+          {data.subtitle}
         </motion.p>
       </div>
 
@@ -159,14 +151,14 @@ const Contact = () => {
           viewport={{ once: true }}
         >
           <h3 className="text-2xl font-teko font-semibold mb-4 text-[#D1A45F]">
-            {text.contactTitle}
+            {data.contactTitle}
           </h3>
 
           <div className="flex items-center gap-4">
             <Mail className="text-[#D1A45F]" />
             <div>
               <p className="text-[#FFE8CC]/60 text-sm">E-mail</p>
-              <p className="text-[#FFE8CC] font-medium">{text.email}</p>
+              <p className="text-[#FFE8CC] font-medium">{data.email}</p>
             </div>
           </div>
 
@@ -174,7 +166,7 @@ const Contact = () => {
             <Phone className="text-[#D1A45F]" />
             <div>
               <p className="text-[#FFE8CC]/60 text-sm">Telefon</p>
-              <p className="text-[#FFE8CC] font-medium">{text.phone}</p>
+              <p className="text-[#FFE8CC] font-medium">{data.phone}</p>
             </div>
           </div>
         </motion.div>

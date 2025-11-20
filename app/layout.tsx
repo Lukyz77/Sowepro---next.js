@@ -1,7 +1,5 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
@@ -69,13 +67,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+
   return (
     <html lang="cs">
       <body className="bg-[#0f1a28] text-[#FFE8CC]">
-          <Navbar />
           {children}
-          <Footer />
           <SpeedInsights />
           <Analytics />
       </body>

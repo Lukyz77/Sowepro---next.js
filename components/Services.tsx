@@ -26,16 +26,7 @@ const getIcon = (index: number) => {
   return <Camera size={36} />;
 };
 
-const Services = () => {
-  const [data, setData] = useState<ServicesData | null>(null);
-
-  useEffect(() => {
-    fetch("/api/services")
-      .then((res) => res.json())
-      .then((result) => setData(result));
-  }, []);
-
-  if (!data) return null;
+const Services = ({data}: {data: ServicesData}) => {
 
   return (
     <section

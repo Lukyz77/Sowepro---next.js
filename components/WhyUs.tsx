@@ -18,16 +18,7 @@ type WhyUsData = {
   reasons: Reason[];
 };
 
-const WhyUs = () => {
-  const [data, setData] = useState<WhyUsData | null>(null);
-
-  useEffect(() => {
-    fetch("/api/whyus")
-      .then((res) => res.json())
-      .then((result) => setData(result));
-  }, []);
-
-  if (!data) return null;
+const WhyUs = ({data}: {data: WhyUsData}) => {
 
   const getIcon = (index: number) => {
   if (index === 0) return <Goal size={36} />;

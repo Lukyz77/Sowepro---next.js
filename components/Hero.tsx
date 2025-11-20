@@ -13,17 +13,8 @@ type HeroData = {
 };
 
 
-const Hero = () => {
+const Hero = ({data}: {data: HeroData}) => {
 
-  const [data, setData] = useState<HeroData | null>(null);
-
-  useEffect(() => {
-    fetch("/api/hero")
-      .then((res) => res.json())
-      .then((result) => setData(result));
-  }, []);
-
-  if (!data) return null;
 
   return (
     <section

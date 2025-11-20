@@ -17,20 +17,12 @@ type NavData = {
   ctaHref: string;
 };
 
-const Navbar = () => {
-  const [data, setData] = useState<NavData | null>(null);
+const Navbar = ({data}: {data: NavData}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasShadow, setHasShadow] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const router = useRouter();
-
-  // Fetch navigation data
-  useEffect(() => {
-    fetch("/api/navbar")
-      .then((res) => res.json())
-      .then((result) => setData(result));
-  }, []);
 
   // Disable scroll on mobile menu open
   useEffect(() => {

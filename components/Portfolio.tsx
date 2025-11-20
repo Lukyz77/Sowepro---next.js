@@ -11,9 +11,8 @@ type PortfolioText = {
   subtitle: string;
 };
 
-const Portfolio = () => {
+const Portfolio = ({data}: {data: PortfolioText}) => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
-  const [text, setText] = useState<PortfolioText | null>(null);
 
   const handleOpenVideo = (videoSrc?: string) => {
     setActiveVideo(videoSrc ?? null);
@@ -32,15 +31,6 @@ const Portfolio = () => {
     { title: "Brewly", type: "web", image: "/assets/Brewly.jpg", href: "https://brewly-ilustration.vercel.app/" },
   ];
 
-  // Fetch text from Sanity
-  useEffect(() => {
-    fetch("/api/portfolio")
-      .then((res) => res.json())
-      .then((result) => setText(result));
-  }, []);
-
-  if (!text) return null;
-
   return (
     <section
       id="portfolio"
@@ -55,9 +45,9 @@ const Portfolio = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          {text.titleBefore}{" "}
-          <span className="text-[#D1A45F]">{text.titleMiddle}</span>{" "}
-          {text.titleAfter}
+          {data.titleBefore}{" "}
+          <span className="text-[#D1A45F]">{data.titleMiddle}</span>{" "}
+          {data.titleAfter}
         </motion.h2>
 
         <motion.p
@@ -67,7 +57,7 @@ const Portfolio = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          {text.subtitle}
+          {data.subtitle}
         </motion.p>
       </div>
 

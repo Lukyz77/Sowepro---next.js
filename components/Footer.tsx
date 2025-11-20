@@ -21,16 +21,7 @@ type FooterData = {
   ico: string;
 };
 
-const Footer = () => {
-  const [data, setData] = useState<FooterData | null>(null);
-
-  useEffect(() => {
-    fetch("/api/footer")
-      .then((res) => res.json())
-      .then((result) => setData(result));
-  }, []);
-
-  if (!data) return null;
+const Footer = ({data}: {data: FooterData}) => {
 
   return (
     <footer className="bg-[#0b131d] text-[#FFE8CC]/70 py-10 px-6 border-t border-[#D1A45F]/20">
@@ -98,7 +89,7 @@ const Footer = () => {
         transition={{ duration: 0.8, delay: 0.3 }}
         viewport={{ once: true }}
       >
-        © {new Date().getFullYear()} {data.brand} — {data.copyright}. <br />
+        © {new Date().getFullYear()} {data.copyright}. <br />
         IČO {data.ico}
       </motion.div>
     </footer>

@@ -16,17 +16,7 @@ type AboutData = {
   buttonHref: string;
 };
 
-const About = () => {
-  const [data, setData] = useState<AboutData | null>(null);
-
-  useEffect(() => {
-    fetch("/api/about")
-      .then((res) => res.json())
-      .then((result) => setData(result));
-  }, []);
-
-  if (!data) return null;
-
+const About = ({data}: {data: AboutData}) => {
 
   return (
     <section
