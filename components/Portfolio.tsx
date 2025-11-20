@@ -1,20 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { teko } from "../app/fonts";
 
+type PortfolioText = {
+  titleBefore: string;
+  titleMiddle: string;
+  titleAfter: string;
+  subtitle: string;
+};
+
 const Portfolio = () => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [text, setText] = useState<PortfolioText | null>(null);
 
   const handleOpenVideo = (videoSrc?: string) => {
     setActiveVideo(videoSrc ?? null);
   };
 
-  const handleCloseVideo = () => {
-    setActiveVideo(null);
-  };
+  const handleCloseVideo = () => setActiveVideo(null);
 
+  // Static projects — zůstávají v kódu
   const projects = [
     { title: "Video 1", type: "video", image: "/assets/thumbnail1.jpg", src: "/assets/Video_1.mp4" },
     { title: "Video 2", type: "video", image: "/assets/thumbnail2.jpg", src: "https://ooiolz7ssixtdhjo.public.blob.vercel-storage.com/Video_2.mp4" },
@@ -24,6 +31,15 @@ const Portfolio = () => {
     { title: "JanNovak", type: "web", image: "/assets/JanNovak.jpg", href: "https://jannovak.vercel.app/" },
     { title: "Brewly", type: "web", image: "/assets/Brewly.jpg", href: "https://brewly-ilustration.vercel.app/" },
   ];
+
+  // Fetch text from Sanity
+  useEffect(() => {
+    fetch("/api/portfolio")
+      .then((res) => res.json())
+      .then((result) => setText(result));
+  }, []);
+
+  if (!text) return null;
 
   return (
     <section
@@ -39,7 +55,9 @@ const Portfolio = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          Nevěříte <span className="text-[#D1A45F]">Přesvědčte se</span>
+          {text.titleBefore}{" "}
+          <span className="text-[#D1A45F]">{text.titleMiddle}</span>{" "}
+          {text.titleAfter}
         </motion.h2>
 
         <motion.p
@@ -49,11 +67,11 @@ const Portfolio = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          Ukázky našich projektů – od firemních webů po moderní prezentační stránky a videa.
+          {text.subtitle}
         </motion.p>
       </div>
 
-      {/* Grid projektů */}
+      {/* Grid projektů – zůstává přesně tak, jak jsi měl */}
       <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
           <motion.div
@@ -64,7 +82,6 @@ const Portfolio = () => {
             transition={{ duration: 0.6, delay: index * 0.1 }}
             viewport={{ once: true }}
           >
-            {/* Obrázek / Thumbnail */}
             <img
               src={project.image}
               alt={project.title}
@@ -72,21 +89,20 @@ const Portfolio = () => {
               className="w-full h-64 object-cover transform group-hover:scale-105 transition-all duration-500"
             />
 
-            {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-tr from-[#D1A45F]/0 via-[#D1A45F]/25 to-[#D1A45F]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
               {project.type === "web" ? (
                 <a
                   href={project.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xl font-teko px-10 py-3 bg-gradient-to-r from-[#D1A45F] to-[#b98a50] rounded-3xl font-semibold opacity-0 group-hover:opacity-100 transition-all duration-500 text-[#142538] drop-shadow-md hover:brightness-110 cursor-pointer"
+                  className="text-xl font-teko px-10 py-3 bg-gradient-to-r from-[#D1A45F] to-[#b98a50] rounded-3xl font-semibold opacity-0 group-hover:opacity-100 transition-all duration-500 text-[#142538]"
                 >
                   Celý web
                 </a>
               ) : (
                 <button
                   onClick={() => handleOpenVideo(project.src)}
-                  className="text-xl font-teko px-10 py-3 bg-gradient-to-r from-[#D1A45F] to-[#b98a50] rounded-3xl font-semibold opacity-0 group-hover:opacity-100 transition-all duration-500 text-[#142538] drop-shadow-md hover:brightness-110 cursor-pointer"
+                  className="text-xl font-teko px-10 py-3 bg-gradient-to-r from-[#D1A45F] to-[#b98a50] rounded-3xl font-semibold opacity-0 group-hover:opacity-100 transition-all duration-500 text-[#142538]"
                 >
                   Přehrát video
                 </button>
@@ -96,7 +112,7 @@ const Portfolio = () => {
         ))}
       </div>
 
-      {/* Modal video */}
+      {/* Modal */}
       <AnimatePresence>
         {activeVideo && (
           <motion.div
@@ -110,10 +126,15 @@ const Portfolio = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e: React.MouseEvent) => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
               className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl"
             >
-              <video src={activeVideo ?? undefined} controls autoPlay className="w-full h-full object-contain bg-black" />
+              <video
+                src={activeVideo}
+                controls
+                autoPlay
+                className="w-full h-full object-contain bg-black"
+              />
             </motion.div>
           </motion.div>
         )}

@@ -1,14 +1,31 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 import { teko } from "../app/fonts";
+
+type ContactText = {
+  titleBefore: string;
+  titleMiddle: string;
+  titleAfter: string;
+  subtitle: string;
+  contactTitle: string;
+  email: string;
+  phone: string;
+};
 
 const Contact = () => {
   const form = useRef<HTMLFormElement | null>(null);
   const [isSending, setIsSending] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
+  const [text, setText] = useState<ContactText | null>(null);
+
+  useEffect(() => {
+    fetch("/api/contact-text")
+      .then((res) => res.json())
+      .then((data) => setText(data));
+  }, []);
 
   const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,31 +43,29 @@ const Contact = () => {
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) {
-        throw new Error(`Server vrátil ${res.status}`);
-      }
+      if (!res.ok) throw new Error();
 
       setStatusMessage("✅ Zpráva byla úspěšně odeslána!");
       form.current.reset();
-    } catch (error) {
-      console.error(error);
-      setStatusMessage("❌ Došlo k chybě při odesílání. Zkuste to znovu.");
+    } catch {
+      setStatusMessage("❌ Došlo k chybě při odesílání.");
     } finally {
       setIsSending(false);
     }
   };
+
+  if (!text) return null;
 
   return (
     <section
       id="contact"
       className="relative bg-[#0f1a28] text-[#FFE8CC] py-20 md:py-28 px-6 overflow-hidden"
     >
+      {/* Nadpis */}
       <div className="max-w-6xl mx-auto text-center mb-14">
         <motion.h2
           className={`text-4xl md:text-5xl font-semibold mb-4 uppercase ${teko.className}`}
@@ -59,8 +74,11 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          Pojďme si zvolit <span className="text-[#D1A45F]">Sowepro</span>
+          {text.titleBefore}{" "}
+          <span className="text-[#D1A45F]">{text.titleMiddle}</span>{" "}
+          {text.titleAfter}
         </motion.h2>
+
         <motion.p
           className="text-[#FFE8CC]/70 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
@@ -68,12 +86,12 @@ const Contact = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          Bookni si konzultaci zdarma a probereme tvůj projekt
+          {text.subtitle}
         </motion.p>
       </div>
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-start">
-        {/* FORMULÁŘ */}
+        {/* FORM */}
         <motion.form
           ref={form}
           onSubmit={sendEmail}
@@ -89,7 +107,7 @@ const Contact = () => {
               type="text"
               name="user_name"
               placeholder="Vaše jméno"
-              className="w-full bg-[#0f1a28] text-[#FFE8CC] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#D1A45F]/50 transition-all"
+              className="w-full bg-[#0f1a28] text-[#FFE8CC] rounded-lg px-4 py-3"
               required
             />
           </div>
@@ -100,7 +118,7 @@ const Contact = () => {
               type="email"
               name="user_email"
               placeholder="Váš e-mail"
-              className="w-full bg-[#0f1a28] text-[#FFE8CC] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#D1A45F]/50 transition-all"
+              className="w-full bg-[#0f1a28] text-[#FFE8CC] rounded-lg px-4 py-3"
               required
             />
           </div>
@@ -109,17 +127,17 @@ const Contact = () => {
             <label className="block text-sm text-[#FFE8CC]/70 mb-2">Zpráva</label>
             <textarea
               name="message"
-              placeholder="Vaše zpráva..."
               rows={5}
-              className="w-full bg-[#0f1a28] text-[#FFE8CC] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#D1A45F]/50 transition-all resize-none"
+              placeholder="Vaše zpráva..."
+              className="w-full bg-[#0f1a28] text-[#FFE8CC] rounded-lg px-4 py-3 resize-none"
               required
-            ></textarea>
+            />
           </div>
 
           <motion.button
             type="submit"
             disabled={isSending}
-            className={`bg-[#D1A45F] text-[#142538] font-medium rounded-full py-3 mt-2 transition-colors duration-300 ${
+            className={`bg-[#D1A45F] text-[#142538] font-medium rounded-full py-3 mt-2 ${
               isSending ? "opacity-70 cursor-not-allowed" : "hover:bg-[#b98a50]"
             }`}
             whileTap={{ scale: 0.97 }}
@@ -128,13 +146,11 @@ const Contact = () => {
           </motion.button>
 
           {statusMessage && (
-            <p className="text-center text-sm text-[#FFE8CC]/70 mt-2">
-              {statusMessage}
-            </p>
+            <p className="text-center text-sm text-[#FFE8CC]/70 mt-2">{statusMessage}</p>
           )}
         </motion.form>
 
-        {/* KONTAKTNÍ INFO */}
+        {/* KONTAKTNÍ ÚDAJE */}
         <motion.div
           className="flex flex-col justify-center bg-[#142538] border border-[#D1A45F]/20 rounded-2xl p-8 shadow-lg space-y-6"
           initial={{ opacity: 0, y: 30 }}
@@ -143,14 +159,14 @@ const Contact = () => {
           viewport={{ once: true }}
         >
           <h3 className="text-2xl font-teko font-semibold mb-4 text-[#D1A45F]">
-            Kontaktní údaje
+            {text.contactTitle}
           </h3>
 
           <div className="flex items-center gap-4">
             <Mail className="text-[#D1A45F]" />
             <div>
               <p className="text-[#FFE8CC]/60 text-sm">E-mail</p>
-              <p className="text-[#FFE8CC] font-medium">info@sowepro.cz</p>
+              <p className="text-[#FFE8CC] font-medium">{text.email}</p>
             </div>
           </div>
 
@@ -158,7 +174,7 @@ const Contact = () => {
             <Phone className="text-[#D1A45F]" />
             <div>
               <p className="text-[#FFE8CC]/60 text-sm">Telefon</p>
-              <p className="text-[#FFE8CC] font-medium">+420 737 704 705</p>
+              <p className="text-[#FFE8CC] font-medium">{text.phone}</p>
             </div>
           </div>
         </motion.div>

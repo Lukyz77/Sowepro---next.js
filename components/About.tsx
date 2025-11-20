@@ -1,10 +1,33 @@
 "use client"
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { teko } from "../app/fonts";
 
+type AboutData = {
+  titleBefore: string;
+  titleMiddle: string;
+  titleAfter: string;
+  text1: string;
+  text2: string;
+  text3: string;
+  buttonText: string;
+  buttonHref: string;
+};
+
 const About = () => {
+  const [data, setData] = useState<AboutData | null>(null);
+
+  useEffect(() => {
+    fetch("/api/about")
+      .then((res) => res.json())
+      .then((result) => setData(result));
+  }, []);
+
+  if (!data) return null;
+
+
   return (
     <section
       id="about"
@@ -40,28 +63,28 @@ const About = () => {
           viewport={{ once: true }}
         >
           <h2 className={`text-4xl md:text-5xl font-semibold mb-6 uppercase ${teko.className}`}>
-            O <span className="text-[#D1A45F]">Nás</span>
+            {data.titleBefore} <span className="text-[#D1A45F]">{data.titleMiddle}</span> {data.titleAfter}
           </h2>
 
           <p className="text-[#FFE8CC]/80 leading-relaxed mb-6 max-w-lg mx-auto md:mx-0">
-            Jsme mladý tým, který spojuje kreativitu s nejmodernější technologií.
+            {data.text1}
           </p>
 
           <p className="text-[#FFE8CC]/70 leading-relaxed mb-8 max-w-lg mx-auto md:mx-0">
-            Nejedeme podle prázdných trendů – každé naše video, fotka i web mají jasný cíl.
+            {data.text2}
           </p>
 
           <p className="text-[#FFE8CC]/70 leading-relaxed mb-8 max-w-lg mx-auto md:mx-0">
-            Z tvých sítí a webu uděláme profesionální vizitku, která zaujme a prodá.
+            {data.text3}
           </p>
 
           <motion.a
-            href="#services"
+            href={data.buttonHref}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             className="inline-block bg-gradient-to-r from-[#D1A45F] to-[#A28556] text-[#142538] font-semibold tracking-wide px-8 py-3 rounded-md shadow-lg hover:opacity-90 transition-all duration-300"
           >
-            Zjistit více
+            {data.buttonText}
           </motion.a>
         </motion.div>
       </div>
