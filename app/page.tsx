@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 export const revalidate = 3600;
 
 async function getPageData() {
-  const res = await fetch(`https://sowepro.cz/api/page-data`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/page-data`, {
     next: { revalidate: 3600 }
   });
 
