@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 import { teko } from "../app/fonts";
+import { toast } from "react-toastify"
 
 type ContactText = {
   titleBefore: string;
@@ -18,12 +19,10 @@ type ContactText = {
 const Contact = ({data}: {data: ContactText}) => {
   const form = useRef<HTMLFormElement | null>(null);
   const [isSending, setIsSending] = useState(false);
-  const [statusMessage, setStatusMessage] = useState("");
 
   const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
-    setStatusMessage("");
 
     if (!form.current) return;
 
@@ -42,10 +41,10 @@ const Contact = ({data}: {data: ContactText}) => {
 
       if (!res.ok) throw new Error();
 
-      setStatusMessage("✅ Zpráva byla úspěšně odeslána!");
+      toast.success("Zpráva byl úspešně odeslána!");
       form.current.reset();
     } catch {
-      setStatusMessage("❌ Došlo k chybě při odesílání.");
+      toast.error("Došlo k chybě při odesílání.");
     } finally {
       setIsSending(false);
     }
@@ -136,10 +135,6 @@ const Contact = ({data}: {data: ContactText}) => {
           >
             {isSending ? "Odesílám..." : "Odeslat zprávu"}
           </motion.button>
-
-          {statusMessage && (
-            <p className="text-center text-sm text-[#FFE8CC]/70 mt-2">{statusMessage}</p>
-          )}
         </motion.form>
 
         {/* KONTAKTNÍ ÚDAJE */}

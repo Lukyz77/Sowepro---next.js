@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { ToastContent } from "react-toastify";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sowepro.cz"),
