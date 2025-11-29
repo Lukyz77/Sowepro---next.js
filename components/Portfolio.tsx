@@ -28,7 +28,7 @@ const Portfolio = ({data}: {data: PortfolioText}) => {
 
     { title: "NextVision", type: "web", image: "/assets/NextVision.jpg", href: "https://nextvision.vercel.app/" },
     { title: "JanNovak", type: "web", image: "/assets/JanNovak.jpg", href: "https://jannovak.vercel.app/" },
-    { title: "Brewly", type: "web", image: "/assets/Brewly.jpg", href: "https://brewly-ilustration.vercel.app/" },
+    { title: "Clarity Consult", type: "web", image: "/assets/Clarity.jpg", href: "https://clarity-consult.vercel.app/" },
   ];
 
   return (
