@@ -46,7 +46,7 @@ const WhyUs = ({data}: {data: WhyUsData}) => {
         </motion.h2>
 
         <motion.p
-          className="text-[#FFE8CC]/70 max-w-2xl mx-auto"
+          className="text-[#FFE8CC]/70 max-w-2xl mx-auto lowercase"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
@@ -57,7 +57,7 @@ const WhyUs = ({data}: {data: WhyUsData}) => {
       </div>
 
       {/* Boxy */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 mb-20">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 mb-20 ">
         {data.reasons?.map((reason, index) => (
           <motion.div
             key={index}
@@ -68,11 +68,11 @@ const WhyUs = ({data}: {data: WhyUsData}) => {
             viewport={{ once: true }}
           >
             <div className="text-[#D1A45F] mb-5">{getIcon(index)}</div>
-            <h3 className={`text-3xl font-semibold mb-3 ${teko.className}`}>
+            <h3 className={`text-3xl font-semibold mb-3 lowercase ${teko.className}`}>
               {reason.title}
             </h3>
 
-            <p className="text-[#FFE8CC]/70 leading-relaxed">
+            <p className="text-[#FFE8CC]/70 leading-relaxed lowercase">
               {reason.text}
             </p>
           </motion.div>

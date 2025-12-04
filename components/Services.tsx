@@ -48,7 +48,7 @@ const Services = ({data}: {data: ServicesData}) => {
         </motion.h2>
 
         <motion.p
-          className="text-[#FFE8CC]/70 max-w-2xl mx-auto"
+          className="text-[#FFE8CC]/70 max-w-2xl mx-auto lowercase"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
@@ -73,19 +73,19 @@ const Services = ({data}: {data: ServicesData}) => {
             <div className="text-[#D1A45F] mb-5">{getIcon(index)}</div>
 
             <h3
-              className={`text-3xl font-semibold mb-3 ${teko.className}`}
+              className={`text-3xl font-semibold mb-3 lowercase ${teko.className}`}
             >
               {service.title}
             </h3>
 
-            <p className="text-[#FFE8CC]/70 leading-relaxed flex-grow">
+            <p className="text-[#FFE8CC]/70 leading-relaxed flex-grow lowercase">
               {service.text}
             </p>
 
             <div className="mt-auto pt-5">
               <a
                 href={service.buttonHref || "#contact"}
-                className="bg-[#D1A45F] text-[#142538] text-md font-bold px-6 py-2 rounded-2xl transition hover:bg-[#E3C8A8] hover:text-[#142538] duration-300"
+                className="bg-[#D1A45F] text-[#142538] text-md font-bold px-6 py-2 rounded-2xl transition hover:bg-[#E3C8A8] hover:text-[#142538] duration-300 lowercase"
               >
                 {service.buttonText}
               </a>
