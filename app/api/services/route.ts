@@ -18,5 +18,9 @@ export async function GET() {
   `;
 
   const data = await client.fetch(query);
-  return NextResponse.json(data);
+  return NextResponse.json(data, {
+    headers: {
+      "Cache-Control": "no-store"
+    }
+  });
 }

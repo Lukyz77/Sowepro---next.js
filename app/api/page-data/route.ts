@@ -3,5 +3,9 @@ import { getPageData } from "../../../lib/GetPageData";
 
 export async function GET() {
   const data = await getPageData();
-  return NextResponse.json(data);
+  return NextResponse.json(data, {
+    headers: {
+      "Cache-Control": "no-store"
+    }
+  });
 }

@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { getPageData } from "../lib/GetPageData";
 
 
-export const revalidate = 3600;
+export const revalidate = 0;
 
 
 export default async function Home() {
