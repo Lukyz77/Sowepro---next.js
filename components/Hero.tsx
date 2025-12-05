@@ -35,7 +35,7 @@ const Hero = ({data}: {data: HeroData}) => {
         <h1 className={`text-5xl md:text-6xl font-teko font-semibold tracking-wide mb-12 leading-tight ${teko.className}`}>
           {data.titleBefore} <span className="text-[#D1A45F]">{data.titleMiddle}</span> {data.titleAfter}
         </h1>
-        <p className="text-sm md:text-md text-[#FFE8CC]/80 max-w-2xl mx-auto mb-16 lowercase">
+        <p className="text-sm md:text-md text-[#FFE8CC]/80 max-w-2xl mx-auto mb-16">
           {data.subtitle}
         </p>
 

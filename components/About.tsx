@@ -56,15 +56,15 @@ const About = ({data}: {data: AboutData}) => {
             {data.titleBefore} <span className="text-[#D1A45F]">{data.titleMiddle}</span> {data.titleAfter}
           </h2>
 
-          <p className="text-[#FFE8CC]/80 leading-relaxed mb-6 max-w-lg mx-auto md:mx-0 lowercase">
+          <p className="text-[#FFE8CC]/80 leading-relaxed mb-6 max-w-lg mx-auto md:mx-0">
             {data.text1}
           </p>
 
-          <p className="text-[#FFE8CC]/70 leading-relaxed mb-8 max-w-lg mx-auto md:mx-0 lowercase">
+          <p className="text-[#FFE8CC]/70 leading-relaxed mb-8 max-w-lg mx-auto md:mx-0">
             {data.text2}
           </p>
 
-          <p className="text-[#FFE8CC]/70 leading-relaxed mb-8 max-w-lg mx-auto md:mx-0 lowercase">
+          <p className="text-[#FFE8CC]/70 leading-relaxed mb-8 max-w-lg mx-auto md:mx-0">
             {data.text3}
           </p>
 
